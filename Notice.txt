@@ -1,0 +1,49 @@
+Notice
+
+Chaque sous-circuit qui est à créer est entouré par une boîte.
+
+
+Pour certains circuits il y a d'abord des sous-circuits à ajouter pour pouvoir faire fonctionner les circuits demandés. 
+Pour éviter des erreurs de matrices dues aux labels, et donc pour pouvoir tester le sous-circuit dans le même fichier que son circuit, nous avons parfois mis des valeurs qui sont à ignorer pour la sélection du sous-circuit. Nous reprendrons ce procédé pour plusieurs des circuits à venir. 
+
+Voici les sous circuits qui nécessitent des opérations avec les détails pour chaque cas.
+
+
+1.2 L'additionneur : 
+Avant de réaliser l'additionneur, il faut ajouter le Demi_Add_1 et Add_1 qui sont, dans l'ordre : un demi additionneur de 1 bit (c'est à dire qu'il ne prend pas de retenue venant de précédemment), et un additionneur 1 bit (qui prend en compte une possible retenue venant de précédemment). 
+Le fichier contenant l'additionneur final 4 bits porte le nom additionneur.txt , le fichier du sous-circuit du demi additionneur 1 bit se nomme Demi_Add1.txt  , le dossier contenant le sous-circuit de l'additionneur 1 bit se nomme Add_1.txt .
+
+
+2.1 Les registres : 
+Avant de réaliser le sous-circuit du registre, il faut ajouter le sous-circuit nommé Bit de mémoire.txt utilisé dans le registre, le bit de mémoire se trouve dans le même dossier que le registre.
+
+
+2.2 Le banc de registre : il n'y a pas de sous-circuit "banc de registre" à créer, le test peut donc s'effectuer directement sur le circuit contrairement à la plupart des autres circuits où le test s'effectuait à côté.
+
+4.3  Une sortie unique pour tous les composants : la logique à trois états
+Pour réaliser le sous-circuit 3etatsIl faut avoir, au préalable, créé le sous-circuit "non(MOSFET P)" qui se trouve dans le fichier nommé non(MOSFET P).txt. En effet, c'est grâce à ce "non" en particulier qu'on peut obtenir la logique à 3 états et enfin le tri-state buffer.
+
+4.5  Test de communication entre composants
+Nous avons rajouté un moyen de mettre une donnée dans le bus pour ensuite l'écrire dans un des registre ou dans la RAM. Ce dispositif possède son propre output enable et les tampons tri state permettent de désactiver les entrées pour qu'elles ne soient pas sur le bus quand on ne le veut pas. Ainsi on peut vérifier si les composants communiquent correctement entre eux.
+Nous avons rajouté un dispositif permettant d'ajouter des données manuellement dans les cases mémoires. Nous l'avons appelé "Injection donnée"
+
+
+
+5.2.1 Décodeur
+Pour réaliser le décodeur, il faut au préalable créer le sous-circuit nommé "Registre 3 en 8 bits" qui se trouve à gauche du circuit du décodeur. Nous avons réalisé deux décodeurs différents : un décodeur 2 bits et un décodeur 3 bits. Les deux circuits sont dans le même dossier. Le décodeur 2 bits est suffisant lorsqu'on a seulement 4 instructions. Le 3 peut avoir 16 instructions.
+
+5.2.2 Registre d'instructions
+Pour réaliser le registre d'instructions, il faut au préalable avoir construit le sous-circuit "décodeur". Comme à la question précédente, nous avons réalisé deux registres d'instructions : un registre d'instruction 2 bits et un à 3 bits (il faut donc utiliser le décodeur correspondant).
+
+5.2.3 Boucle d'exécution
+1. Nous avons volontairement laissé le générateur d'onde carrée hors du sous-circuit "Horloge (3)" à notre guise et pour pouvoir tester les valeurs manuellement si besoin.
+
+3. et 4. Pour réaliser le circuit final, il faut au préalable avoir créer les sous-circuits nommés "R5", "distributeur" (distributeur contient R5 qui est situé dans le même fichier), "interface" (interface contient distributeur). Le distributeur permet de faire correspondre l'instruction donnée par l'utilisateur, au numéro de l'instruction voulue. R5 est un registre particulier pour faire fonctionner les distributeurs. Interface est un assemblage de deux distributeurs (un pour l'adressage et un pour les instructions). Il faut ensuite mettre le décodeur pour la partie instructions. Interface permet à l'utilisateur d'entrer son programme en langage machine. Si on devait créer un sous-circuit "Petit ordinateur", les entrées seraient les entrées d'interface.
+La façon d'écrire le langage machine est la suivante : 4 instructions composées de 2bits correspondants à l'instruction elle même, c'est à dire l'action, et ensuite 2bits correspondants à l'adressage. Cela permet donc de faire une instruction à une adresse précise. 
+En B.A.I, nous avons par exemple l'instruction LDA n qui va Load le contenu situé à l'adresse n dans l'accumulateur. Cela fonctionne donc de la même manière. D'abord l'instruction puis ensuite l'adresse.
+
+A la dernière question, le programme en langage machine que nous avons réalisé est :
+ 0001 0110 1011 1111 
+Cela réalise l'opération demandée (lire deux cases mémoires, les charger dans les registres A et B, faire la somme des deux et mettre le résultat dans le registre C, finalement, mettre le contenu de C dans une case mémoire).
+
+Notice d'utilisation du projet d'éléctronique (construction d'un petit ordinateur) de Noé NIZOU
